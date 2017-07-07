@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <property name="LOG_HOME" value="/tmp/tps/logs"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="main"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/dv/view.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/dv/view.log-%d{yyyy-MM-dd}
+            </FileNamePattern>
+            <MaxHistory>3</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} %class %-5level %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="controller"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_HOME}/dv/controller-data.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/dv/controller-data.log-%d{yyyy-MM-dd}
+            </FileNamePattern>
+            <MaxHistory>8</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} %class %-5level %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.github.controller" level="INFO" additivity="false">
+        <appender-ref ref="controller"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="main"/>
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

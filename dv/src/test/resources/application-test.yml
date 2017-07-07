@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: deploy-pratice
+
+server:
+  port: 50005
+
+
