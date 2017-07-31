@@ -1,0 +1,79 @@
+{
+  "request": {
+    "urlPathPattern": "/crescent/memebers.do",
+    "method": "GET",
+    "queryParameters": {
+      "userId": {
+        "equalTo": "9"
+      },
+      "groupId": {
+        "equalTo": "9"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": [
+      {
+        "noLongerAppear": false,
+        "id": 9,
+        "userId": 9,
+        "groupId": 9,
+        "role": null,
+        "realId": null,
+        "email": "tpm@oneapm.com",
+        "password": "E136EFCE72C70BA8DB08B3220F11E574",
+        "telephone": "13245678900",
+        "companyName": "RootGroup",
+        "groupName": null,
+        "status": true,
+        "deleted": false,
+        "forgetPasswordCode": null,
+        "contactName": "菜单",
+        "qqNumber": "",
+        "companySize": 0,
+        "coming": "home",
+        "account": "admin",
+        "validating": false,
+        "activateCode": "",
+        "createDate": 1484628664000,
+        "lastLoginTime": null,
+        "inviteCode": "365ed871f61c4c25820534c231264537",
+        "invitorId": 0,
+        "productList": null,
+        "groups": null,
+        "registerType": "personal"
+      },
+      {
+        "noLongerAppear": false,
+        "id": 857654159,
+        "userId": 857654159,
+        "groupId": 9,
+        "role": null,
+        "realId": null,
+        "email": "lpp@oneapm.com",
+        "password": "49DEC5FB8AF4EEEF7C95E7F5C66C8AE6",
+        "telephone": "15111111111",
+        "companyName": "RootGroup",
+        "groupName": null,
+        "status": true,
+        "deleted": false,
+        "forgetPasswordCode": null,
+        "contactName": "lpp",
+        "qqNumber": "",
+        "companySize": 0,
+        "coming": "home",
+        "account": "user",
+        "validating": false,
+        "activateCode": "62E08A407A297EF23D18BBF3DA8EBFAD",
+        "createDate": 1493953987000,
+        "lastLoginTime": null,
+        "inviteCode": "c08f8ee13b3f49ebaf042fa6f8af2c12",
+        "invitorId": 9,
+        "productList": null,
+        "groups": null,
+        "registerType": "group_invite"
+      }
+    ]
+  }
+}

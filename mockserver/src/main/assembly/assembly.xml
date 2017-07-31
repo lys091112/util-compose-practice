@@ -1,0 +1,30 @@
+<assembly>
+  <id>mock-server</id>
+  <formats>
+    <format>tar.gz</format>
+  </formats>
+  <dependencySets>
+    <dependencySet>
+      <useProjectArtifact>true</useProjectArtifact>
+      <outputDirectory>lib</outputDirectory>
+    </dependencySet>
+  </dependencySets>
+  <fileSets>
+    <fileSet>
+      <directory>src/main/bin</directory>
+      <outputDirectory>bin</outputDirectory>
+      <includes>
+        <include>start-mock.sh</include>
+        <include>stop-mock.sh</include>
+      </includes>
+      <fileMode>0755</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>src/main/resources</directory>
+      <outputDirectory>config</outputDirectory>
+      <includes>
+        <include>**/**</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>

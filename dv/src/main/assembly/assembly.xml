@@ -12,9 +12,9 @@
             <outputDirectory>lib</outputDirectory>
             <!-- 是否包含自身构建的jar -->
             <useProjectArtifact>true</useProjectArtifact>
-            <excludes>
-                <exclude>org.projectlombok:lombok</exclude>
-            </excludes>
+            <!--<excludes>-->
+                <!--<exclude>org.projectlombok:lombok</exclude>-->
+            <!--</excludes>-->
         </dependencySet>
     </dependencySets>
     <fileSets>

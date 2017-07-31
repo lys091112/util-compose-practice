@@ -1,0 +1,64 @@
+{
+  "request": {
+    "urlPathPattern": "/crescent/login.do",
+    "method": "GET",
+    "queryParameters": {
+//      "JSESSIONID": {
+//        "equalTo": "1111"
+//      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "isLogin": true,
+      "user": {
+        "role": "user",
+        "level": 10,
+        "contactName": "liuwe",
+        "companyName": "OneAPM",
+        "groupId": 9,
+        "groups": [
+          {
+            "userId": 391221110,
+            "email": null,
+            "groupId": 9,
+            "groupName": "OneAPM",
+            "parentId": 0,
+            "adminId": 9,
+            "role": "user",
+            "defaultGroup": true,
+            "deleted": false,
+            "activeCode": "",
+            "memberSize": 2,
+            "agents": 0,
+            "status": true
+          }
+        ],
+        "telephone": "13718121111",
+        "qqNumber": null,
+        "registerType": "group_invite",
+        "isDemo": true,
+        "userId": 391221110,
+        "invitorId": 9,
+        "expireDate": 1485924664000,
+        "id": 9,
+        "realId": 391221110,
+        "email": "liuhongjun@oneapm.com",
+        "coming": null,
+        "productList": [
+          {
+            "id": 10,
+            "icon": "&#xe6e0;",
+            "stateIcon": "&#xe6e6;",
+            "label": "监控和优化应用程序的代码性能、错误及SQL语句性能",
+            "englishLabel": "支持Java、PHP、Ruby、Python、Node.js、.Net",
+            "link": "http://10.128.5.115/ai",
+            "key": "ai"
+          }
+        ],
+        "createDate": 1498033740000
+      }
+    }
+  }
+}

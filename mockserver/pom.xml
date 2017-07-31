@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>mvn-deploy-practice</artifactId>
+    <groupId>com.github</groupId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>mock-server</artifactId>
+  <version>0.1-SNAPSHOT</version>
+
+  <name>Mock Server</name>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>local-snapshots</id>
+      <uniqueVersion>false</uniqueVersion>
+      <url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+      <layout>default</layout>
+    </snapshotRepository>
+    <repository>
+      <id>local-releases</id>
+      <uniqueVersion>true</uniqueVersion>
+      <layout>default</layout>
+      <url>http://localhost:8081/nexus/content/repositories/releases/</url>
+    </repository>
+  </distributionManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.github.tomakehurst</groupId>
+      <artifactId>wiremock</artifactId>
+      <version>2.6.0</version>
+    </dependency>
+
+    <!-- util -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>22.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <!--<version>1.2.3</version>-->
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-access</artifactId>
+      <!--<version>1.2.3</version>-->
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <!--<version>1.2.3</version>-->
+    </dependency>
+
+    <!-- slf4j 对于 common logging 的桥接器-->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.7.12</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>mock-service</finalName>
+    <defaultGoal>install</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+              <useUniqueVersions>true</useUniqueVersions>
+              <mainClass>com.github.mock.Application</mainClass>
+            </manifest>
+            <manifestEntries>
+              <Built-Date>${maven.build.timestamp}</Built-Date>
+            </manifestEntries>
+          </archive>
+          <excludes>
+            <exclude>response/**</exclude>
+            <exclude>logback.xml</exclude>
+            <exclude>app.properties</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

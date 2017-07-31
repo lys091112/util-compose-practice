@@ -1,0 +1,34 @@
+{
+  "request": {
+    "urlPathPattern": "/ai/v5/apps/([0-9]*)",
+    "method": "GET",
+    "queryParameters": {
+      "API_USERNAME": {
+        "equalTo": "oneapm"
+      }
+    }
+  },
+  "response": {
+    "status": 200,
+    "jsonBody": {
+      "apdex": 1,
+      "appId": 2,
+      "appName": "mock_app2",
+      "callCount": 2,
+      "callCountPerMin": 0.3333333333333333,
+      "dissatisfiedCallsOfApps": 0,
+      "dissatisfiedCallsOfWebTransactionEntries": 0,
+      "errCountPerMin": 0,
+      "errorCount": 0,
+      "errorRate": 0,
+      "numberOfDissatisfiedTier": 0,
+      "numberOfSatisfiedTier": 3,
+      "numberOfToleranceTier": 0,
+      "responseTime": 0.09,
+      "satisfiedCallsOfApps": 6,
+      "satisfiedCallsOfWebTransactionEntries": 2,
+      "toleranceCallsOfApps": 0,
+      "toleranceCallsOfWebTransactionEntries": 0
+    }
+  }
+}
