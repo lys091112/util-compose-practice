@@ -1,6 +1,6 @@
 {
   "request": {
-    "urlPathPattern": "/ai/v5/apps/([0-9]*)",
+    "urlPathPattern": "/apps/([0-9]*)",
     "method": "GET",
     "queryParameters": {
       "API_USERNAME": {
