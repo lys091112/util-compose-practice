@@ -3,11 +3,11 @@
 
   <property name="LOG_HOME" value="/tmp/tps/logs"/>
 
-  <contextName>com.oneapm.touch.mock-server</contextName>
+  <contextName>mock-server</contextName>
   <appender name="main" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>${LOG_HOME}/com.oneapm.touch.mock-server/com.oneapm.touch.com.github.mock.log</File>
+    <File>${LOG_HOME}/mock-server/com.github.mock.log</File>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <FileNamePattern>${LOG_HOME}/com.oneapm.touch.mock-server/com.oneapm.touch.mock-%d{yyyy-MM-dd}.log</FileNamePattern>
+      <FileNamePattern>${LOG_HOME}/mock-server/mock-%d{yyyy-MM-dd}.log</FileNamePattern>
       <MaxHistory>10</MaxHistory>
     </rollingPolicy>
     <encoder>
@@ -17,9 +17,9 @@
   </appender>
 
   <appender name="mybatis-data" class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <File>${LOG_HOME}/com.oneapm.touch.mock-server/com.oneapm.touch.mock-data.log</File>
+    <File>${LOG_HOME}/mock-server/mock-data.log</File>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <FileNamePattern>${LOG_HOME}/com.oneapm.touch.mock-server/com.oneapm.touch.mock-data-%d{yyyy-MM-dd}.log</FileNamePattern>
+      <FileNamePattern>${LOG_HOME}/mock-server/mock-data-%d{yyyy-MM-dd}.log</FileNamePattern>
       <MaxHistory>10</MaxHistory>
     </rollingPolicy>
     <encoder>

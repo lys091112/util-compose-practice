@@ -10,8 +10,9 @@ public class MockServer {
      * server 的标识
      */
     private String tenant;
+
     /**
-     * wirc com.oneapm.touch.com.github.mock file locations
+     * wiremock file locations
      */
     private String path;
 
@@ -27,8 +28,11 @@ public class MockServer {
         this(config.getTenant(), config.getPort());
     }
 
+    /**
+     * maxRequestJournalEntries 如果不进行设置，那么在InMemoryRequestJournal会不断累积历史记录，造成内存NoSpace
+     */
     public void start() {
-        server = new WireMockServer(WireMockConfiguration.options().port(port).usingFilesUnderClasspath(path));
+        server = new WireMockServer(WireMockConfiguration.options().port(port).maxRequestJournalEntries(100).usingFilesUnderClasspath(path));
         server.start();
     }
 

@@ -86,6 +86,7 @@ function java_opts() {
   JAVA_OPTS="$JAVA_OPTS -Dsun.net.inetaddr.ttl=0"
   JAVA_OPTS="$JAVA_OPTS -Djava.net.preferIPv4Stack=true"
   JAVA_OPTS="$JAVA_OPTS -Djava.security.egd=file:/dev/./urandom"
+  JAVA_OPTS="$JAVA_OPTS -Dcom.sun.management.jmxremote=true -Dcom.sun.management.jmxremote.port=50008 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false -Djava.rmi.server.hostname=10.128.6.188"
 }
 
 function bootstrap() {
