@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=lys091112
+    ports:
+      - "3306:3306"
+    volumes:
+      - "./mysql/resources/00-init.sql:/docker-entrypoint-initdb.d/00-init.sql"
+    networks:
+      - "netName1"
+
+networks:
+  netName1:
+    driver: bridge
