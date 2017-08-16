@@ -11,15 +11,6 @@ services:
     networks:
       - "netName1"
 
-  redis:
-    image: redis:4.0
-    container_name: myredis
-    ports:
-      - "6379:6379"
-    volumes:
-      - "./redis/resources/redis.conf:/usr/local/etc/redis/redis.conf"
-    networks:
-      - "netName1"
 
 networks:
   netName1:

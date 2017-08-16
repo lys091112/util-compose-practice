@@ -1,0 +1,9 @@
+version: '2'
+services:
+  redis:
+    image: redis:4.0
+    container_name: myredis
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./resources/redis.conf:/usr/local/etc/redis/redis.conf"
