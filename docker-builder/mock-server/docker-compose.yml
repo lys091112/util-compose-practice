@@ -1,0 +1,10 @@
+version: '2'
+services:
+  mockserver:
+    build: .
+    environment:
+      - LOG_DIR=/tmp/local
+    ports:
+      - "18001:18001"
+      - "18002:18002"
+

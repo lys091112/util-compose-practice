@@ -109,7 +109,7 @@ function bootstrap() {
     exit 1
   fi
 
-  printf "%d" ${PID} > "${BASE_DIR}/bin/com.github.mock.pid"
+  printf "%d" ${PID} > "${BASE_DIR}/bin/mock.pid"
   echo "Successfully launched Application, PID: ${PID}"
   exit 0
 }
