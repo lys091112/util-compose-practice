@@ -9,3 +9,6 @@ services:
       - "13306:3306"
     volumes:
       - "./resources/00-init.sql:/docker-entrypoint-initdb.d/00-init.sql"
+      - "./mysqldata:/var/lib/mysql"
+        
+        #- "/media/langle/2C2C88C82C888F10/mysqldata:/var/lib/mysql"

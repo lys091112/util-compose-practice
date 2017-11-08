@@ -7,7 +7,12 @@ release:
 	docker push $(NAME)
 
 run:
-	docker-compose run --service-ports --rm readthedocs
+	docker-compose up -d
+	#docker-compose run --service-ports --rm readthedocs
+	
+stop:
+	docker-compose stop
+
 debug-run:
 	docker-compose run --service-ports --rm readthedocs bash
 debug-app:

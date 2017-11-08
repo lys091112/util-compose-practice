@@ -27,4 +27,9 @@ hs_err_pid*
 # docker-build mysql
 docker-builder/mysql/master-slave/data/*
 
+docker-builder/mysql/mysql/mysqldata/*
+
+docker-builder/read-the-docs/es/*
+docker-builder/read-the-docs/pgsql/*
+
 # docker-build read-the-docs
