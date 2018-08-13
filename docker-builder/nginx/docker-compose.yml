@@ -1,0 +1,16 @@
+version: '2'
+services:
+  nginx:
+   container_name: own-nginx
+   image: nginx:1.14.0
+   restart: always
+   ports:
+   - "80:80"
+   - "443:443"
+   volumes:
+   - "./resources/nginx.conf:/etc/nginx/nginx.conf"
+   - "./resources/conf.d:/etc/nginx/conf.d"
+   - "./resources/ssl:/etc/nginx/ssl"
+   - "./data/log:/opt/log/nginx"
+
+     # command: mkdir -p /opt/log/nginx/feedback_access.log
