@@ -1,0 +1,9 @@
+version: '2'
+services:
+  spark2.1:
+    build: .
+    environment:
+      - LOG_DIR=/tmp/local
+    ports:
+      - "18001:18001"
+
