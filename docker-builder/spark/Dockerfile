@@ -3,9 +3,14 @@
 FROM ubuntu
 
 ENV JAVA_ADDRESS http://10.252.25.90:8125/files/jdk-8u181-linux-x64.tar.gz
+ENV SCALA_ADDRESS http://10.252.25.90:8125/files/scala-2.11.12.tgz
+ENV HADOOP_ADDRESS http://10.252.25.90:8125/files/hadoop-3.0.3.tar.gz
+ENV SPARK_ADDRESS http://10.252.25.90:8125/files/spark-2.3.1-bin-hadoop2.7.tgz
 
 # Add build payloads
-ADD bin /bin
+ADD resources/bin /bin
+ADD resources/ssh /root/.ssh
+ADD resources/tmp /tmp/conf
 
 RUN \
 
@@ -15,32 +20,62 @@ RUN \
 
     # 更新软件源
     && apt-get -y update \
-  
-    # Install Java
-    && mkdir -p /usr/crescent \
     && apt-get install -y telnet \
     && apt-get install -y curl \
+    && apt-get install -y openssh-server \
+    && apt-get install -y net-tools \
+    && apt-get install -y inetutils-ping \
+    && apt-get install -y vim \
+    # && dpkg-reconfigure dash -y \
+    # && rm -f /bin/sh \
+    # && ln -s /bin/bash /bin/sh \
+
+    && mkdir -p /usr/crescent \
+
+    # Install Java
     && curl -fSL $JAVA_ADDRESS -o /tmp/jdk-8u181-linux-x64.tar.gz \
-    && tar -zxvf /tmp/jdk-8u181-linux-x64.tar.gz -C /usr/crescent/ \
+    && tar -zxf /tmp/jdk-8u181-linux-x64.tar.gz -C /usr/crescent/ \
     && echo "export JAVA_HOME=/usr/crescent/jdk1.8.0_181" >> /etc/profile \
     && echo "export JRE_HOME=\${JAVA_HOME}/jre" >> /etc/profile \
     && echo "export CLASSPATH=.:\${JAVA_HOME}/lib:\${JRE_HOME}/lib" >> /etc/profile \
     && echo "export PATH=\${JAVA_HOME}/bin:\$PATH" >> /etc/profile \
-    && source /etc/profile/
-    && rm -rf /tmp/jdk-8u181-linux-x64.tar.gz
+    && rm -rf /tmp/jdk-8u181-linux-x64.tar.gz \
 
-    # Generate the need directory structure
-    #&& mkdir -p /crescent/local \
+    # Install Scala
+    && curl -fSL $SCALA_ADDRESS -o /tmp/scala-2.11.12.tgz \
+    && tar -zxf /tmp/scala-2.11.12.tgz -C /usr/crescent/ \
+    && echo "export SCALA_HOME=/usr/crescent/scala-2.11.12" >> /etc/profile \
+    && echo "export PATH=\${SCALA_HOME}/bin:\$PATH" >> /etc/profile \
+    && rm -rf /tmp/scala-2.11.12.tgz \
 
-    # Install MockServer
-    # && curl -fSl $MOCK_SERVER -o /tmp/mock-service.tar.gz \
-    # && tar xfz /tmp/mock-service.tar.gz -C /crescent/local \
-    # && mv /crescent/local/mock-service/* /crescent/local \
-    # && rm -rf /crescent/local/mock-service 
 
+    ## Install Hadoop
+    && curl -fSL $HADOOP_ADDRESS -o /tmp/hadoop-3.0.3.tar.gz \
+    && tar -zxf /tmp/hadoop-3.0.3.tar.gz -C /usr/crescent/ \
+    && echo "export HADOOP_HOME=/usr/crescent/hadoop-3.0.3" >> /etc/profile \
+    && echo "export PATH=\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin:\$PATH" >> /etc/profile \
+    && echo "export HADOOP_PREFIX=/usr/crescent/hadoop-3.0.3" >> /usr/crescent/hadoop-3.0.3/etc/hadoop/hadoop-env.sh \
+    && echo "export JAVA_HOME=/usr/crescent/jdk1.8.0_181" >> /usr/crescent/hadoop-3.0.3/etc/hadoop/hadoop-env.sh \
+    && echo "export JAVA_HOME=/usr/crescent/jdk1.8.0_181" >> /usr/crescent/hadoop-3.0.3/etc/hadoop/yarm-env.sh \
+    && yes | cp -r /tmp/conf/* /usr/crescent/hadoop-3.0.3/etc/hadoop/ \
+    && rm -rf /tmp/hadoop-3.0.3.tar.gz
+    
 # Add JAVA_HOME into system environment
-ENV JAVA_HOME /usr/crescent/jdk-8u181-linux-x64
+ENV JAVA_HOME /usr/crescent/jdk1.8.0_181
+ENV SCALA_HOME /usr/crescent/scala-2.11.12
+ENV HADOOP_HOME /usr/crescent/hadoop-3.0.3
+ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
 
-EXPOSE 18001
+ENV PATH $PATH:$JAVA_HOME/bin:$SCALA_HOME/lib:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
+ENV HDFS_DATANODE_USER=root
+ENV HADOOP_SECURE_DN_USER=hdfs
+ENV HDFS_NAMENODE_USER=root
+ENV HDFS_SECONDARYNAMENODE_USER=root
+
+ENV YARN_RESOURCEMANAGER_USER=root
+ENV HADOOP_SECURE_DN_USER=yarn
+ENV YARN_NODEMANAGER_USER=root
+
+CMD ["source", "/etc/profile"]
 ENTRYPOINT ["/bin/bash","/bin/startup.sh"]
