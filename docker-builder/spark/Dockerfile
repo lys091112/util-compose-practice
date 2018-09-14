@@ -7,6 +7,12 @@ ENV SCALA_ADDRESS http://10.252.25.90:8125/files/scala-2.11.12.tgz
 ENV HADOOP_ADDRESS http://10.252.25.90:8125/files/hadoop-3.0.3.tar.gz
 ENV SPARK_ADDRESS http://10.252.25.90:8125/files/spark-2.3.1-bin-hadoop2.7.tgz
 
+
+ENV JAVA_HOME /usr/crescent/jdk1.8.0_181
+ENV SCALA_HOME /usr/crescent/scala-2.11.12
+ENV HADOOP_HOME /usr/crescent/hadoop-3.0.3
+ENV SPARK_HOME /usr/crescent/spark-2.3.1-bin-hadoop2.7
+
 # Add build payloads
 ADD resources/bin /bin
 ADD resources/ssh /root/.ssh
@@ -58,15 +64,27 @@ RUN \
     && echo "export JAVA_HOME=/usr/crescent/jdk1.8.0_181" >> /usr/crescent/hadoop-3.0.3/etc/hadoop/hadoop-env.sh \
     && echo "export JAVA_HOME=/usr/crescent/jdk1.8.0_181" >> /usr/crescent/hadoop-3.0.3/etc/hadoop/yarm-env.sh \
     && yes | cp -r /tmp/conf/* /usr/crescent/hadoop-3.0.3/etc/hadoop/ \
-    && rm -rf /tmp/hadoop-3.0.3.tar.gz
+    && rm -rf /tmp/hadoop-3.0.3.tar.gz \
+
+    ## Install Spark
+    && curl -fSL $SPARK_ADDRESS -o /tmp/spark-2.3.1-bin-hadoop2.7.tar.gz \
+    && tar -zxf /tmp/spark-2.3.1-bin-hadoop2.7.tar.gz -C /usr/crescent/ \
+    && echo "export SPARK_HOME="$SPARK_HOME >> /etc/profile \
+    && echo "export PATH=\${SPARK_HOME}/bin:\${SPARK_HOME}/sbin:\$PATH" >> /etc/profile \
+    && mv /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh.template /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export JAVA_HOME="$JAVA_HOME >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export SCALA_HOME="$SCALA_HOME >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export SPARK_WORKER_MEMORY=1g" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export HADOOP_CONF_DIR=/usr/crescent/hadoop-3.0.3/etc/hadoop" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export SPARK_MASTER_IP=DEV-SH-MAP-01" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && mv /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/slaves.template /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/slaves \
+    && echo "" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/slaves \
+    && echo "DEV-SH-MAP-01" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/slaves \
+    && rm -rf /tmp/spark-2.3.1-bin-hadoop2.7.tar.gz
     
 # Add JAVA_HOME into system environment
-ENV JAVA_HOME /usr/crescent/jdk1.8.0_181
-ENV SCALA_HOME /usr/crescent/scala-2.11.12
-ENV HADOOP_HOME /usr/crescent/hadoop-3.0.3
 ENV CLASSPATH .:${JAVA_HOME}/lib:${JRE_HOME}/lib
-
-ENV PATH $PATH:$JAVA_HOME/bin:$SCALA_HOME/lib:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+ENV PATH $PATH:$JAVA_HOME/bin:$SCALA_HOME/lib:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$SPARK_HOME/sbin
 
 ENV HDFS_DATANODE_USER=root
 ENV HADOOP_SECURE_DN_USER=hdfs
