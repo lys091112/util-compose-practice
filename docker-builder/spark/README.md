@@ -2,7 +2,7 @@
 
 BASE
 
-执行 
+在master机器执行 
 ssh root@master
 ssh root@slave1
 ssh root@slave2
@@ -15,18 +15,14 @@ HADOOP
 2. start-dfs.sh start-yarn.sh 启动服务 或者执行 start-all.sh
 
 
-
 SPARK
 
-1. 修改spark-env.sh 将其中的域名改为ip地址
-
-2. start-master.sh start-slaves.sh 来启动master worker进程
+1. start-master.sh start-slaves.sh 来启动master worker进程
 
 
 tmp:
 
 ssh-copy-id -i ~/.ssh/id_rsa.pub root@slave1
-
 
 
 1. 配置无密码登录之后，ssh localhost仍然需要输入密码，可能的问题是文件权限问题：

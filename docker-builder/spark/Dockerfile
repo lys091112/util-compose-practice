@@ -18,15 +18,11 @@ ADD resources/hadoop /tmp/conf
 ADD resources/spark /tmp/spark
 
 RUN \
-
     chmod 755 /bin/*.sh \
-
     && chown root:root -R ./root \
     && chmod 600 /root/.ssh/authorized_keys \
     && echo "PermitRootLogin yes" >> /etc/ssh/sshd_config \
-
     && mkdir -p /usr/crescent \
-
     # Install Java
     && curl -fSL $JAVA_ADDRESS -o /tmp/java.tar.gz \
     && tar -zxf /tmp/java.tar.gz -C /usr/crescent/ \
@@ -35,15 +31,12 @@ RUN \
     && echo "export CLASSPATH=.:\${JAVA_HOME}/lib:\${JRE_HOME}/lib" >> /etc/profile \
     && echo "export PATH=\${JAVA_HOME}/bin:\$PATH" >> /etc/profile \
     && rm -rf /tmp/java.tar.gz \
-
     # Install Scala
     && curl -fSL $SCALA_ADDRESS -o /tmp/scala.tgz \
     && tar -zxf /tmp/scala.tgz -C /usr/crescent/ \
     && echo "export SCALA_HOME="$SCALA_HOME >> /etc/profile \
     && echo "export PATH=\${SCALA_HOME}/bin:\$PATH" >> /etc/profile \
     && rm -rf /tmp/scala.tgz \
-
-
     ## Install Hadoop
     && curl -fSL $HADOOP_ADDRESS -o /tmp/hadoop.tar.gz \
     && tar -zxf /tmp/hadoop.tar.gz -C /usr/crescent/ \
@@ -54,7 +47,6 @@ RUN \
     && echo "export JAVA_HOME="$JAVA_HOME >> ${HADOOP_HOME}/etc/hadoop/yarm-env.sh \
     && yes | cp -r /tmp/conf/* ${HADOOP_HOME}/etc/hadoop/ \
     && rm -rf /tmp/hadoop.tar.gz \
-
     ## Install Spark
     && curl -fSL $SPARK_ADDRESS -o /tmp/spark.tar.gz \
     && tar -zxf /tmp/spark.tar.gz -C /usr/crescent/ \

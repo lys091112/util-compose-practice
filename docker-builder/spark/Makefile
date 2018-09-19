@@ -10,5 +10,11 @@ run:
 stop:
 	docker-compose stop
 
-exec:
-	docker-compose -it exec mock-server bash
+exec-master:
+	docker exec -it spark_master_1 bash
+
+exec-slave1:
+	docker exec -it spark_slave1_1 bash
+
+exec-slave2:
+	docker exec -it spark_slave2_1 bash
