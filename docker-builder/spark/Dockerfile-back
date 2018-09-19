@@ -49,10 +49,10 @@ RUN \
     && tar -zxf /tmp/hadoop.tar.gz -C /usr/crescent/ \
     && echo "export HADOOP_HOME="$HADOOP_HOME >> /etc/profile \
     && echo "export PATH=\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin:\$PATH" >> /etc/profile \
-    && echo "export HADOOP_PREFIX="$HADOOP_HOME >> ${HADOOP_HOME}/etc/hadoop/hadoop-env.sh \
-    && echo "export JAVA_HOME="$JAVA_HOME >> ${HADOOP_HOME}/etc/hadoop/hadoop-env.sh \
-    && echo "export JAVA_HOME="$JAVA_HOME >> ${HADOOP_HOME}/etc/hadoop/yarm-env.sh \
-    && yes | cp -r /tmp/conf/* ${HADOOP_HOME}/etc/hadoop/ \
+    && echo "export HADOOP_PREFIX="$HADOOP_HOME >> /usr/crescent/hadoop-3.0.3/etc/hadoop/hadoop-env.sh \
+    && echo "export JAVA_HOME="$JAVA_HOME >> /usr/crescent/hadoop-3.0.3/etc/hadoop/hadoop-env.sh \
+    && echo "export JAVA_HOME="$JAVA_HOME >> /usr/crescent/hadoop-3.0.3/etc/hadoop/yarm-env.sh \
+    && yes | cp -r /tmp/conf/* /usr/crescent/hadoop-3.0.3/etc/hadoop/ \
     && rm -rf /tmp/hadoop.tar.gz \
 
     ## Install Spark
@@ -60,12 +60,12 @@ RUN \
     && tar -zxf /tmp/spark.tar.gz -C /usr/crescent/ \
     && echo "export SPARK_HOME="$SPARK_HOME >> /etc/profile \
     && echo "export PATH=\${SPARK_HOME}/bin:\${SPARK_HOME}/sbin:\$PATH" >> /etc/profile \
-    && mv ${SPARK_HOME}/conf/spark-env.sh.template ${SPARK_HOME}/conf/spark-env.sh \
-    && echo "export JAVA_HOME="$JAVA_HOME >> ${SPARK_HOME}/conf/spark-env.sh \
-    && echo "export SCALA_HOME="$SCALA_HOME >> ${SPARK_HOME}/conf/spark-env.sh \
-    && echo "export SPARK_WORKER_MEMORY=1g" >> ${SPARK_HOME}/conf/spark-env.sh \
-    && echo "export HADOOP_CONF_DIR="${HADOOP_HOME}"/etc/hadoop" >> ${SPARK_HOME}/conf/spark-env.sh \
-    && echo "export SPARK_MASTER_HOST=master" >> ${SPARK_HOME}/conf/spark-env.sh \
+    && mv /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh.template /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export JAVA_HOME="$JAVA_HOME >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export SCALA_HOME="$SCALA_HOME >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export SPARK_WORKER_MEMORY=1g" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export HADOOP_CONF_DIR=/usr/crescent/hadoop-3.0.3/etc/hadoop" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
+    && echo "export SPARK_MASTER_HOST=master" >> /usr/crescent/spark-2.3.1-bin-hadoop2.7/conf/spark-env.sh \
     && yes | cp /tmp/spark/* ${SPARK_HOME}/conf/ \
     && rm -rf /tmp/spark.tar.gz
     

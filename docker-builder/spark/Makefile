@@ -1,4 +1,4 @@
-MOCK_NAME=crescent/spark2.1
+MOCK_NAME=spark2.3
 
 build:
 	docker build -t $(MOCK_NAME) .

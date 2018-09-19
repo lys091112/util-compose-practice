@@ -17,13 +17,16 @@
 <!-- Put site-specific property overrides in this file. -->
 
 <configuration>
-   <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://DEV-SH-MAP-01:9001</value>
-    </property>
-    <property>
-        <name>hadoop.tmp.dir</name>
-        <value>/mnt/hadoop/tmp</value>
-    </property>
+  <property>
+    <name>dfs.replication</name>
+    <value>2</value>
+  </property>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:/mnt/hadoop/dfs/name</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:/mnt/hadoop/dfs/data</value>
+  </property>
 </configuration>
-

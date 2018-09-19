@@ -1,22 +1,40 @@
 version: '2'
 services:
-  spark2.1:
+  master:
     build: .
     environment:
       - LOG_DIR=/tmp/local
-    hostname: DEV-SH-MAP-01
+    hostname: Master01
     ports:
+        - "7077:7077"
         - "9001:9001"
+        - "9868:9868"
+        # 代替3.0之前的50070端口
+        - "9870:9870"
+        - "8080:8080"
+        - "8088:8088"
+        - "6066:6066"
         - "8030:8030"
         - "8031:8031"
         - "8032:8032"
         - "8033:8033"
-        - "8080:8080"
-        - "8088:8088"
-        - "10020:10020"
-        - "19888:19888"
-        # 代替3.0之前的50070端口
-        - "9870:9870"
+        - "41727:41727"
         - "22:22"
-
-
+  slave1:
+    build: .
+    hostname: Slave01
+    environment:
+      - LOG_DIR=/tmp/local
+    ports:
+        - "9864"
+    links:
+      - master
+  slave2:
+    build: .
+    hostname: Slave02 
+    environment:
+      - LOG_DIR=/tmp/local
+    ports:
+        - "9864"
+    links:
+      - master
