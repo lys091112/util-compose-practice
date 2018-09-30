@@ -4,7 +4,7 @@ services:
     build: .
     environment:
       - LOG_DIR=/tmp/local
-    hostname: Master01
+    hostname: master 
     ports:
         - "7077:7077"
         - "9001:9001"
@@ -19,22 +19,26 @@ services:
         - "8032:8032"
         - "8033:8033"
         - "41727:41727"
-        - "22:22"
+        - "22"
   slave1:
     build: .
-    hostname: Slave01
+    hostname: slave1
     environment:
       - LOG_DIR=/tmp/local
     ports:
         - "9864"
+        - "8042"
+        - "8081"
     links:
       - master
   slave2:
     build: .
-    hostname: Slave02 
+    hostname: slave2 
     environment:
       - LOG_DIR=/tmp/local
     ports:
         - "9864"
+        - "8042"
+        - "8081"
     links:
       - master

@@ -44,6 +44,7 @@ RUN \
     && echo "export PATH=\${HADOOP_HOME}/bin:\${HADOOP_HOME}/sbin:\$PATH" >> /etc/profile \
     && echo "export HADOOP_PREFIX="$HADOOP_HOME >> ${HADOOP_HOME}/etc/hadoop/hadoop-env.sh \
     && echo "export JAVA_HOME="$JAVA_HOME >> ${HADOOP_HOME}/etc/hadoop/hadoop-env.sh \
+    && echo "export HADOOP_OPTS=${HADOOP_OPTS} -Djava.library.path=${HADOOP_HOME}/lib/native" \
     && echo "export JAVA_HOME="$JAVA_HOME >> ${HADOOP_HOME}/etc/hadoop/yarm-env.sh \
     && yes | cp -r /tmp/conf/* ${HADOOP_HOME}/etc/hadoop/ \
     && rm -rf /tmp/hadoop.tar.gz \
@@ -56,6 +57,7 @@ RUN \
     && echo "export JAVA_HOME="$JAVA_HOME >> ${SPARK_HOME}/conf/spark-env.sh \
     && echo "export SCALA_HOME="$SCALA_HOME >> ${SPARK_HOME}/conf/spark-env.sh \
     && echo "export SPARK_WORKER_MEMORY=1g" >> ${SPARK_HOME}/conf/spark-env.sh \
+    && echo "export LD_LIBRARY_PATH=:"${HADOOP_HOME}"lib/native" >> ${SPARK_HOME}/conf/spark-env.sh \
     && echo "export HADOOP_CONF_DIR="${HADOOP_HOME}"/etc/hadoop" >> ${SPARK_HOME}/conf/spark-env.sh \
     && echo "export SPARK_MASTER_HOST=master" >> ${SPARK_HOME}/conf/spark-env.sh \
     && yes | cp /tmp/spark/* ${SPARK_HOME}/conf/ \
