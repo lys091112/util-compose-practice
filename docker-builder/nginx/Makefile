@@ -4,6 +4,7 @@ run:
 	docker-compose up -d
 
 recreate:
+	docker-compose stop
 	docker-compose up -d --force-recreate
 
 stop:
