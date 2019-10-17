@@ -1,0 +1,13 @@
+version: '2'
+services:
+  jupyter:
+    container_name: jupyter_01
+    image: crescent/jupyter
+    build: .
+    environment:
+      - LOG_DIR=/tmp/local
+    ports:
+      - "8888:8888"
+    volumes:
+      - "./resource/source.list:/etc/apt/sources.list"
+

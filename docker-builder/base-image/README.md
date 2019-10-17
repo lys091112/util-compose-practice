@@ -28,3 +28,12 @@ docker push sudo docker push lys091112/ubuntu:0.1
 
 
 ```
+
+
+### 基础镜像
+
+```
+    镜像 scratch(空镜像), 大小 0B
+    镜像 busybox(空镜像 + busybox), 大小 1.4MB
+    镜像 alpine (空镜像 + busybox + apk), 大小 3.98MB
+```
