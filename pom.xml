@@ -24,7 +24,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.springboot>1.5.4.RELEASE</version.springboot>
+        <version.springboot>2.5.12</version.springboot>
         <version.lombok>1.16.16</version.lombok>
         <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
         <version.maven-release-plugin>2.5.3</version.maven-release-plugin>
