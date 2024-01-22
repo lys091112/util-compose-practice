@@ -1,0 +1,17 @@
+version: "3.2"
+
+services:
+  pytorch:
+    container_name: pytorch_01
+    build: .
+    environment:
+      - LOG_DIR=/tmp/local
+    ports:
+      - "8888:8888"
+    volumes:
+      - "/Users/langle/xianyue/own/own_git/doc/jupyter:/crescent/workspace"
+      - "./resources/jupyter_notebook_config.py:/root/.jupyter/jupyter_notebook_config.py"
+
+
+volumes:
+  data: {}

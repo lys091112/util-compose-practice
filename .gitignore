@@ -32,5 +32,6 @@ docker-builder/mysql/mysql/mysqldata/*
 docker-builder/read-the-docs/es/*
 docker-builder/read-the-docs/pgsql/*
 **/anaconda.sh
+docker-builder/**/data/**
 
 # docker-build read-the-docs

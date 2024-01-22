@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+ elasticsearch:
+  image: elasticsearch:7.7.0
+  restart: always  
+  container_name: elasticsearch
+  environment:
+   - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+   - "discovery.type=single-node"
+  volumes:
+   - ./data:/usr/share/elasticsearch/data
+   - ./plugins:/usr/share/elasticsearch/plugins
+   - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  ports:
+    - '9200:9200'     #java、集群通信端口
+    - '9300:9300'     #http通信端口
+  privileged: true    #环境变量
+
+ kibana:
+  image: kibana:7.7.0
+  container_name: kibana
+  depends_on:
+    - elasticsearch #kibana在elasticsearch启动之后再启动
+  environment:
+    - "elasticsearch.hosts=http://127.0.0.1:9200" #设置访问elasticsearch的地址
+  volumes:
+    - ./kibana/config:/usr/share/kibana/config #配置文件挂载
+  ports:
+    - 5601:5601
